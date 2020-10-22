@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import getRecipes from './api/getRecipes';
-import getApiQuery from './api/getApiQuery';
+import buildApiUrl from './api/buildApiUrl';
 import Recipe from './Recipe';
 
 const App = () => {
@@ -9,11 +9,12 @@ const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('chicken');
+  const [start, setStart] = useState(0);
 
   useEffect(() => {
-    const apiUrl = getApiQuery(query);
+    const apiUrl = buildApiUrl(query, start);
     getRecipes(apiUrl, setRecipes);
-  }, [query]);
+  }, [query, start]);
 
   const onUpdateHandler = (e) => {
     setSearch(e.target.value);
@@ -22,6 +23,16 @@ const App = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     setQuery(search);
+  };
+
+  const nextPageHandler = (e) => {
+    e.preventDefault();
+    setStart((prevStart) => prevStart + 10);
+  };
+
+  const prevPageHandler = (e) => {
+    e.preventDefault();
+    setStart((prevStart) => prevStart - 10);
   };
 
   return (
@@ -44,6 +55,10 @@ const App = () => {
           <Recipe recipe={recipe.recipe} key={recipe.recipe.label} />
         ))}
       </div>
+      {start !== 0 && 
+        <button className='next-results' onClick={prevPageHandler}>Prev. 10 results</button>
+      }
+      <button className='next-results' onClick={nextPageHandler}>Next 10 results</button>
     </div>
   );
 };

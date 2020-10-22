@@ -9,6 +9,7 @@ h1 {
 .App {
   background-image: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
   min-height: 100vh;
+  padding-bottom: 80px;
 }
 
 .search-form {
@@ -37,4 +38,13 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.next-results {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  width: 125px;
 }
