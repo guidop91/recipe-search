@@ -13,6 +13,7 @@ const Recipe = ({ recipe }) => (
         <li key={recipe.label + i}>{ingredient}</li>
       ))}
     </ul>
+    <h3><a href={recipe.url}>Get this recipe</a></h3>
   </div>
 );
 
